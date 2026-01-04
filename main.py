@@ -75,13 +75,13 @@ class BookSummaryApp:
         book_author = input("Enter author name (optional, press Enter to skip): ").strip()
         
         print("\nSummary length options:")
-        print("  1. Short (100-150 words)")
-        print("  2. Medium (250-350 words) - recommended")
-        print("  3. Long (500-700 words)")
-        length_choice = input("Choose length (1-3, default: 2): ").strip() or "2"
+        print("  1. Short (150-200 words)")
+        print("  2. Medium (300-400 words)")
+        print("  3. Long (600-800 words) - recommended for comprehensive detail")
+        length_choice = input("Choose length (1-3, default: 3): ").strip() or "3"
         
         length_map = {"1": "short", "2": "medium", "3": "long"}
-        summary_length = length_map.get(length_choice, "medium")
+        summary_length = length_map.get(length_choice, "long")
         
         additional_context = input("\nAny specific focus areas? (optional, press Enter to skip): ").strip()
         
@@ -225,7 +225,7 @@ def quick_generate(book_title, book_author=None, image_path=None):
     summary = app.summary_gen.generate_summary(
         book_title=book_title,
         book_author=book_author,
-        summary_length="medium"
+        summary_length="long"
     )
     print(f"✅ Summary generated ({len(summary.split())} words)")
     

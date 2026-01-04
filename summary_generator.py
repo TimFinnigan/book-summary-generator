@@ -1,5 +1,6 @@
 """
 Module for generating book summaries using OpenAI's GPT API.
+Creates factual, neutral summaries to help readers refresh their memory.
 Supports iterative refinement of summaries.
 """
 import os
@@ -10,7 +11,7 @@ load_dotenv()
 
 
 class SummaryGenerator:
-    """Handles book summary generation with OpenAI API."""
+    """Generates factual book summaries to refresh readers' memory of key events and concepts."""
     
     def __init__(self):
         """Initialize the OpenAI client."""
@@ -21,7 +22,7 @@ class SummaryGenerator:
         self.conversation_history = []
     
     def generate_summary(self, book_title, book_author=None, additional_context=None, 
-                        summary_length="medium", model="gpt-4o-mini"):
+                        summary_length="long", model="gpt-4o-mini"):
         """
         Generate a summary for a book.
         
@@ -29,36 +30,44 @@ class SummaryGenerator:
             book_title: Title of the book
             book_author: Author of the book (optional)
             additional_context: Any additional context or specific aspects to focus on
-            summary_length: "short" (100-150 words), "medium" (250-350 words), "long" (500-700 words)
+            summary_length: "short" (150-200 words), "medium" (300-400 words), "long" (600-800 words, default)
             model: OpenAI model to use
         
         Returns:
             Generated summary text
         """
         length_guidelines = {
-            "short": "100-150 words, focusing on the core message only",
-            "medium": "250-350 words, covering main themes and key insights",
-            "long": "500-700 words, providing comprehensive coverage of major concepts and takeaways"
+            "short": "150-200 words, focusing on the most essential events and concepts",
+            "medium": "300-400 words, covering key events, themes, and main points",
+            "long": "600-800 words, providing comprehensive coverage with important details and context"
         }
         
         author_text = f" by {book_author}" if book_author else ""
         context_text = f"\n\nAdditional context: {additional_context}" if additional_context else ""
         
-        prompt = f"""Create an engaging and insightful summary of the book "{book_title}"{author_text}.
+        prompt = f"""Create a factual summary of the book "{book_title}"{author_text}.
 
-Length requirement: {length_guidelines.get(summary_length, length_guidelines["medium"])}
+Length requirement: {length_guidelines.get(summary_length, length_guidelines["long"])}
 
-The summary should:
-- Capture the book's main themes and key ideas
-- Be written in an engaging, conversational tone suitable for audio narration
-- Avoid spoilers for fiction, focus on insights for non-fiction
-- Be structured with clear flow from introduction to conclusion{context_text}
+IMPORTANT - Format for audio narration:
+- Write in flowing, natural paragraphs that work well when read aloud
+- Do NOT use bullet points, lists, headers, or any special formatting
+- Structure the content as continuous prose with smooth transitions between ideas
+- Use complete sentences and natural paragraph breaks
 
-Generate the summary:"""
+Content requirements:
+- Provide a clear, neutral overview of the book's content
+- Present key events, concepts, and important details in a straightforward manner
+- Use factual language to help readers refresh their memory of what happened
+- Include sufficient detail to capture the essential elements
+- Progress logically through the material with clear narrative flow
+- Avoid promotional language or subjective opinions{context_text}
+
+Generate the summary as continuous prose:"""
         
         # Clear conversation history for new summary
         self.conversation_history = [
-            {"role": "system", "content": "You are an expert book reviewer and summarizer. Create summaries that are engaging, insightful, and well-structured."},
+            {"role": "system", "content": "You are an expert book summarizer. Create clear, factual summaries that help readers refresh their memory of what happened in the book. Write in flowing paragraphs suitable for audio narration - no bullet points, lists, or headers. Use neutral, objective language and include key details, events, and main points."},
             {"role": "user", "content": prompt}
         ]
         
@@ -126,11 +135,10 @@ if __name__ == "__main__":
     # Example usage
     generator = SummaryGenerator()
     
-    # Generate initial summary
+    # Generate initial summary (defaults to "long" for comprehensive detail)
     summary = generator.generate_summary(
         book_title="Atomic Habits",
-        book_author="James Clear",
-        summary_length="medium"
+        book_author="James Clear"
     )
     print("Generated Summary:")
     print(summary)

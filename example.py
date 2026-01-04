@@ -20,7 +20,7 @@ def example_summary_generation():
     summary = generator.generate_summary(
         book_title="The 7 Habits of Highly Effective People",
         book_author="Stephen Covey",
-        summary_length="medium"
+        summary_length="long"
     )
     print("\nInitial Summary:")
     print(summary)

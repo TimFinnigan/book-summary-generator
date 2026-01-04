@@ -2,6 +2,8 @@
 
 Get up and running with the Book Summary Generator in 5 minutes!
 
+Generate factual summaries to refresh your memory of books, then convert them to audio and video.
+
 ## Step 1: Install Dependencies
 
 ```bash

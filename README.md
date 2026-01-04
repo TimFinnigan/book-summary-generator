@@ -1,17 +1,19 @@
 # 📚 Book Summary Generator
 
-An AI-powered tool that generates engaging book summaries, converts them to audio narration, and creates videos optimized for YouTube Shorts and social media.
+An AI-powered tool that generates factual book summaries to refresh your memory, converts them to audio narration, and creates videos optimized for YouTube Shorts and social media.
 
 ## Features
 
 ### 1. 📝 Text Summary Generation
 - Generate book summaries using OpenAI's GPT models
 - **Iterative refinement**: Keep refining until you're happy with the result
-- Multiple length options (short, medium, long)
-- Conversational tone optimized for audio narration
+- Multiple length options (defaults to comprehensive "long" format)
+- Neutral, factual tone to help refresh memory of key events and concepts
+- Optimized for audio narration with flowing paragraphs (no lists or headers)
 
 ### 2. 🎵 Audio Narration
 - Convert text summaries to natural-sounding speech using OpenAI's TTS
+- **Automatically handles long text** by splitting and combining audio segments
 - 6 different voice options (male/female, various styles)
 - Choice between standard and HD quality
 
@@ -85,7 +87,7 @@ generator = SummaryGenerator()
 summary = generator.generate_summary(
     book_title="Atomic Habits",
     book_author="James Clear",
-    summary_length="medium"  # or "short", "long"
+    summary_length="long"  # default; or "short", "medium"
 )
 print(summary)
 
@@ -149,16 +151,17 @@ video_path = generator.create_video(
 
 ## Summary Length Guidelines
 
-- **Short**: 100-150 words - Core message only
-- **Medium**: 250-350 words - Main themes and key insights (recommended)
-- **Long**: 500-700 words - Comprehensive coverage
+- **Short**: 150-200 words - Most essential events/concepts only
+- **Medium**: 300-400 words - Key events, themes, and main points
+- **Long**: 600-800 words - Comprehensive coverage with important details (default, recommended)
 
 ## Tips for Best Results
 
 ### For Summaries:
-- Provide specific context or focus areas when generating
-- Use the iterative refinement feature to dial in the perfect tone
-- Medium length works best for video narrations (2-3 minutes)
+- Provide specific context or focus areas when generating (e.g., "focus on plot events" or "emphasize key frameworks")
+- Use the iterative refinement feature to adjust the level of detail
+- Default "long" format provides comprehensive coverage (typically 3-4 minutes of narration)
+- Summaries are formatted as flowing paragraphs perfect for audio narration
 
 ### For Audio:
 - Use **nova** or **shimmer** for engaging, friendly narration
