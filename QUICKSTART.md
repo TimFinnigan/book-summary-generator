@@ -75,7 +75,13 @@ python main.py "Atomic Habits" "James Clear" "./cover.jpg"
 → Make sure your `.env` file is in the project root directory
 
 ### "ModuleNotFoundError"
-→ Run `pip install -r requirements.txt` again
+→ Run `pip3 install -r requirements.txt` (note: use `pip3` on macOS)
+
+### MoviePy import issues
+→ This project requires moviepy 1.0.3 specifically:
+```bash
+pip3 install moviepy==1.0.3
+```
 
 ### "Image file not found"
 → Use absolute path or drag-and-drop the file when prompted

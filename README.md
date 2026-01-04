@@ -210,7 +210,17 @@ ValueError: OPENAI_API_KEY not found in environment variables
 ```
 ModuleNotFoundError: No module named 'openai'
 ```
-→ Run `pip install -r requirements.txt`
+→ Run `pip install -r requirements.txt` or `pip3 install -r requirements.txt`
+
+### MoviePy Import Issues
+```
+ModuleNotFoundError: No module named 'moviepy.editor'
+```
+→ The project uses moviepy 1.0.3 specifically. Run:
+```bash
+pip3 install moviepy==1.0.3
+```
+Note: Newer versions of moviepy have a different module structure
 
 ### Video Generation Issues
 ```
